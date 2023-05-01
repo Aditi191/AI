@@ -1,0 +1,50 @@
+%Q11 palindrome
+app([],L,L).
+app([X|L1],L2,[X|L3]):- app(L1,L2,L3).
+pal([]).
+pal([_]).
+pal(Plist):-app([H|T],[H],Plist),pal(T).
+
+%Q11 
+palindrome(L) :- reverse(L, L).
+
+%Q12 
+sumlist([], 0).
+sumlist([H|T], S) :- sumlist(T, SUMT), 
+                     S is H + SUMT.
+
+%Q13
+evenlength([]).
+evenlength([_, _|T]) :- evenlength(T).
+
+oddlength([_]).
+oddlength([_, _|T]) :- oddlength(T).
+
+%Q14
+nth_element(1, [X|_], X).
+nth_element(N, [_|T], X) :- M is N - 1, 
+                            nth_element(M, T, X).
+
+%Q15
+maxlist([X], X).
+maxlist([H|T], M) :- maxlist(T, N), 
+                     M is max(H, N).
+
+%Q16
+insert_nth(I, 1, L, [I|L]).
+insert_nth(I, N, [H|T], [H|R]) :- M is N - 1, 
+                                  insert_nth(I, M, T, R).
+
+%Q17
+delete_nth(1, [_|T], T).
+delete_nth(N, [H|T], [H|R]) :- M is N - 1, 
+                               delete_nth(M, T, R).
+
+%Q18
+merge([], L, L).
+merge(L, [], L).
+merge([H1|T1], [H2|T2], [H1|T3]) :- H1 =< H2, 
+                                    merge(T1, [H2|T2], T3).
+merge([H1|T1], [H2|T2], [H2|T3]) :- H1 > H2, 
+                                    merge([H1|T1], T2, T3).
+
